@@ -116,7 +116,6 @@ void build_model(CubismModel* model, GDCubismUserModel* target_node, Array textu
         InternalCubismRenderer2D::update_material(model, index, node);
         node->set_name(node_name);
         node->set_instance_shader_parameter("tex_idx", model->GetDrawableTextureIndex(index));
-        node->set_z_index(renderOrder[index]);
         node->set_meta("index", index);
 		
         const bool visible = model->GetDrawableDynamicFlagIsVisible(index) && model->GetDrawableOpacity(index) > 0.0f;
