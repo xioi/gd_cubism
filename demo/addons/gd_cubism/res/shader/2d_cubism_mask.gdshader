@@ -4,9 +4,7 @@
 shader_type canvas_item;
 render_mode blend_mix, unshaded;
 
-#include "cubism_sampler.gdshaderinc"
-
 void fragment() {
-    vec4 color_tex = SAMPLE_TEX;
+    vec4 color_tex = texture(TEXTURE, UV);
     COLOR = vec4(0,0,0,color_tex.a);
 }

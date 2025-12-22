@@ -8,7 +8,6 @@ instance uniform vec4 color_base: source_color;
 instance uniform vec4 color_screen: source_color;
 instance uniform vec4 color_multiply: source_color;
 
-#include "cubism_sampler.gdshaderinc"
 #include "cubism_mask.gdshaderinc"
 
 void fragment() {
@@ -16,7 +15,7 @@ void fragment() {
 		discard;
 	}
 	
-    vec4 color_tex = SAMPLE_TEX;
+    vec4 color_tex = texture(TEXTURE, UV);
     color_tex.rgb = color_tex.rgb * color_multiply.rgb;
 
     // premul alpha

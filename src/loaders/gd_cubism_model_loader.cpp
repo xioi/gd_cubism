@@ -71,8 +71,6 @@ void build_model(CubismModel* model, GDCubismUserModel* target_node, Array textu
         mat.instantiate();
             
         mat->set_shader(shader);
-        mat->set_shader_parameter("tex_main", textures);
-        mat->set_shader_parameter("tex_main_nofilter", textures);
         mat->set_shader_parameter("tex_mask", placeholder);
         mat->set_local_to_scene(true);
         base_materials[i] = mat;
@@ -111,12 +109,12 @@ void build_model(CubismModel* model, GDCubismUserModel* target_node, Array textu
         Ref<ArrayMesh> ary_mesh = node->get_mesh();
         Ref<ShaderMaterial> mat = request_shader_material(model, index, base_materials);
         node->set_material(mat);
-
+        
 		InternalCubismRenderer2D::update_mesh(model, index, ary_mesh, ppunit);
         InternalCubismRenderer2D::update_material(model, index, node);
         node->set_name(node_name);
-        node->set_instance_shader_parameter("tex_idx", model->GetDrawableTextureIndex(index));
         node->set_meta("index", index);
+        node->set_texture(textures[model->GetDrawableTextureIndex(index)]);
 		
         const bool visible = model->GetDrawableDynamicFlagIsVisible(index) && model->GetDrawableOpacity(index) > 0.0f;
         node->set_visible(visible);
@@ -188,7 +186,7 @@ void build_model(CubismModel* model, GDCubismUserModel* target_node, Array textu
             node->set_z_index(renderOrder[j]);
             node->set_meta("index", j);
             node->set_meta("mask_index", m_index);
-            node->set_instance_shader_parameter("tex_idx", model->GetDrawableTextureIndex(j));
+            node->set_texture(textures[model->GetDrawableTextureIndex(j)]);
             node->set_visible(true);
 
             viewport->add_child(node);
